@@ -12,9 +12,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        
+      - name: Download Clone
+        run: |
+          DOWNLOAD_URL=$(curl -s https://api.github.com/repos/ProtoSoftware/clone/releases/latest \ 
+          | grep browser_download_url \
+          | grep linux_x86_64 \
+          | cut -d '"' -f 4) curl -s -L --create-dirs -o ~/clone "$DOWNLOAD_URL"
+
   
       - name: Make Bin Executable
-        run: chmod +x ./bin/CloneRelease
+        run: chmod +x ./clone
 
       - name: Check for missing releases
-        run: GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" SOURCE_REPO="ProtoSoftware/proton-ge-curated" TARGET_REPO="GloriousEggroll/proton-ge-custom" ./bin/CloneRelease
+        run: GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" SOURCE_REPO="ProtoSoftware/proton-ge-curated" TARGET_REPO="GloriousEggroll/proton-ge-custom" ./clone

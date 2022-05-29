@@ -26,4 +26,4 @@ jobs:
         run: chmod +x ./clone
 
       - name: Check for missing releases
-        run: GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" SOURCE_REPO="ProtoSoftware/proton-ge-curated" TARGET_REPO="GloriousEggroll/proton-ge-custom" ./clone
+        run: GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" SOURCE_REPO="ProtoSoftware/proton-ge-curated" TARGET_REPO="GloriousEggroll/proton-ge-custom" SKIP_OLD="true" ./clone

@@ -1,0 +1,20 @@
+name: Schedule
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  
+
+jobs:
+  Releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+  
+      - name: Make Bin Executable
+        run: chmod +x ./bin/CloneRelease
+
+      - name: Check for missing releases
+        run: GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" SOURCE_REPO="ProtoSoftware/wine-ge-curated" TARGET_REPO="GloriousEggroll/wine-ge-custom" ./bin/CloneRelease
